@@ -1,0 +1,530 @@
+[
+    {
+        "id": 1,
+        "name": "Điểm bầu cử số 1 - Trường TH Đông Thạnh A",
+        "address": "Ấp 1, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8835,
+        "lng": 106.6055,
+        "image": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 2,
+        "name": "Điểm bầu cử số 2 - UBND Xã Đông Thạnh",
+        "address": "Ấp 1, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8842,
+        "lng": 106.6070,
+        "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 3,
+        "name": "Điểm bầu cử số 3 - Nhà văn hóa Ấp 1",
+        "address": "Ấp 1, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8850,
+        "lng": 106.6085,
+        "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 4,
+        "name": "Điểm bầu cử số 4 - Trường THCS Đông Thạnh",
+        "address": "Ấp 1, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8858,
+        "lng": 106.6100,
+        "image": "https://images.unsplash.com/photo-1562774053-701939374585?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 5,
+        "name": "Điểm bầu cử số 5 - Trường MN Đông Thạnh",
+        "address": "Ấp 2, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8866,
+        "lng": 106.6115,
+        "image": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 6,
+        "name": "Điểm bầu cử số 6 - Nhà văn hóa Ấp 2",
+        "address": "Ấp 2, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8874,
+        "lng": 106.6130,
+        "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 7,
+        "name": "Điểm bầu cử số 7 - Chùa Phước An",
+        "address": "Ấp 2, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8882,
+        "lng": 106.6145,
+        "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 8,
+        "name": "Điểm bầu cử số 8 - Trường TH Đông Thạnh B",
+        "address": "Ấp 2, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8825,
+        "lng": 106.6060,
+        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 9,
+        "name": "Điểm bầu cử số 9 - Đình Đông Thạnh",
+        "address": "Ấp 3, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8818,
+        "lng": 106.6075,
+        "image": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 10,
+        "name": "Điểm bầu cử số 10 - Nhà văn hóa Ấp 3",
+        "address": "Ấp 3, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8810,
+        "lng": 106.6090,
+        "image": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 11,
+        "name": "Điểm bầu cử số 11 - Trường TH Đông Thạnh C",
+        "address": "Ấp 3, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8802,
+        "lng": 106.6105,
+        "image": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 12,
+        "name": "Điểm bầu cử số 12 - Nhà thờ Đông Thạnh",
+        "address": "Ấp 3, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8795,
+        "lng": 106.6120,
+        "image": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 13,
+        "name": "Điểm bầu cử số 13 - Trạm y tế xã",
+        "address": "Ấp 4, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8788,
+        "lng": 106.6135,
+        "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 14,
+        "name": "Điểm bầu cử số 14 - Nhà văn hóa Ấp 4",
+        "address": "Ấp 4, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8780,
+        "lng": 106.6150,
+        "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 15,
+        "name": "Điểm bầu cử số 15 - Trường MN Hoa Sen",
+        "address": "Ấp 4, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8890,
+        "lng": 106.6050,
+        "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 16,
+        "name": "Điểm bầu cử số 16 - Chợ Đông Thạnh",
+        "address": "Ấp 4, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8898,
+        "lng": 106.6065,
+        "image": "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 17,
+        "name": "Điểm bầu cử số 17 - Bưu điện xã",
+        "address": "Ấp 5, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8906,
+        "lng": 106.6080,
+        "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 18,
+        "name": "Điểm bầu cử số 18 - Nhà văn hóa Ấp 5",
+        "address": "Ấp 5, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8914,
+        "lng": 106.6095,
+        "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 19,
+        "name": "Điểm bầu cử số 19 - Trường TH Đông Thạnh D",
+        "address": "Ấp 5, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8922,
+        "lng": 106.6110,
+        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 20,
+        "name": "Điểm bầu cử số 20 - Công an xã",
+        "address": "Ấp 5, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8930,
+        "lng": 106.6125,
+        "image": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 21,
+        "name": "Điểm bầu cử số 21 - Hội trường UBND",
+        "address": "Ấp 6, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8838,
+        "lng": 106.6160,
+        "image": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 22,
+        "name": "Điểm bầu cử số 22 - Nhà văn hóa Ấp 6",
+        "address": "Ấp 6, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8845,
+        "lng": 106.6175,
+        "image": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 23,
+        "name": "Điểm bầu cử số 23 - Trường THCS Lê Thị Hồng Gấm",
+        "address": "Ấp 6, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8853,
+        "lng": 106.6190,
+        "image": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 24,
+        "name": "Điểm bầu cử số 24 - Nhà sinh hoạt cộng đồng",
+        "address": "Ấp 6, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8861,
+        "lng": 106.6040,
+        "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 25,
+        "name": "Điểm bầu cử số 25 - Trường MN Hoa Mai",
+        "address": "Ấp 7, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8770,
+        "lng": 106.6055,
+        "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 26,
+        "name": "Điểm bầu cử số 26 - Nhà văn hóa Ấp 7",
+        "address": "Ấp 7, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8778,
+        "lng": 106.6070,
+        "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 27,
+        "name": "Điểm bầu cử số 27 - Đền thờ liệt sĩ",
+        "address": "Ấp 7, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8786,
+        "lng": 106.6085,
+        "image": "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 28,
+        "name": "Điểm bầu cử số 28 - Trường TH Đông Thạnh E",
+        "address": "Ấp 7, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8794,
+        "lng": 106.6100,
+        "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 29,
+        "name": "Điểm bầu cử số 29 - Nhà thờ Tân Hội",
+        "address": "Ấp 8, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8938,
+        "lng": 106.6045,
+        "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 30,
+        "name": "Điểm bầu cử số 30 - Nhà văn hóa Ấp 8",
+        "address": "Ấp 8, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8946,
+        "lng": 106.6060,
+        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 31,
+        "name": "Điểm bầu cử số 31 - Trường MN Sao Sáng",
+        "address": "Ấp 8, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8830,
+        "lng": 106.6140,
+        "image": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 32,
+        "name": "Điểm bầu cử số 32 - Hội trường Ấp 1",
+        "address": "Ấp 1, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8822,
+        "lng": 106.6155,
+        "image": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 33,
+        "name": "Điểm bầu cử số 33 - Trung tâm Văn hóa",
+        "address": "Ấp 1, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8815,
+        "lng": 106.6170,
+        "image": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 34,
+        "name": "Điểm bầu cử số 34 - Trường THPT Đông Thạnh",
+        "address": "Ấp 2, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8807,
+        "lng": 106.6185,
+        "image": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 35,
+        "name": "Điểm bầu cử số 35 - Nhà văn hóa Thanh niên",
+        "address": "Ấp 2, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8800,
+        "lng": 106.6042,
+        "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 36,
+        "name": "Điểm bầu cử số 36 - Chùa Long Thạnh",
+        "address": "Ấp 3, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8870,
+        "lng": 106.6038,
+        "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 37,
+        "name": "Điểm bầu cử số 37 - Nhà máy nước",
+        "address": "Ấp 3, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8878,
+        "lng": 106.6053,
+        "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 38,
+        "name": "Điểm bầu cử số 38 - Trường TH Đông Thạnh F",
+        "address": "Ấp 4, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8886,
+        "lng": 106.6168,
+        "image": "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 39,
+        "name": "Điểm bầu cử số 39 - Hội trường phụ nữ",
+        "address": "Ấp 4, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8894,
+        "lng": 106.6183,
+        "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 40,
+        "name": "Điểm bầu cử số 40 - Sân vận động xã",
+        "address": "Ấp 5, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8902,
+        "lng": 106.6198,
+        "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 41,
+        "name": "Điểm bầu cử số 41 - Nhà văn hóa Đoàn",
+        "address": "Ấp 5, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8910,
+        "lng": 106.6035,
+        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 42,
+        "name": "Điểm bầu cử số 42 - Trường MN Bình Minh",
+        "address": "Ấp 5, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8918,
+        "lng": 106.6048,
+        "image": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 43,
+        "name": "Điểm bầu cử số 43 - Nhà thờ Bình An",
+        "address": "Ấp 6, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8926,
+        "lng": 106.6163,
+        "image": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 44,
+        "name": "Điểm bầu cử số 44 - Trung tâm GDTX",
+        "address": "Ấp 6, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8934,
+        "lng": 106.6178,
+        "image": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 45,
+        "name": "Điểm bầu cử số 45 - Hội trường cựu chiến binh",
+        "address": "Ấp 6, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8942,
+        "lng": 106.6193,
+        "image": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 46,
+        "name": "Điểm bầu cử số 46 - Trường TH Đông Thạnh G",
+        "address": "Ấp 7, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8765,
+        "lng": 106.6068,
+        "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 47,
+        "name": "Điểm bầu cử số 47 - Nhà văn hóa Mặt trận",
+        "address": "Ấp 7, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8773,
+        "lng": 106.6183,
+        "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 48,
+        "name": "Điểm bầu cử số 48 - Trường MN Tuổi Thơ",
+        "address": "Ấp 8, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8950,
+        "lng": 106.6075,
+        "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 49,
+        "name": "Điểm bầu cử số 49 - Hội trường nông dân",
+        "address": "Ấp 8, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8958,
+        "lng": 106.6090,
+        "image": "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 50,
+        "name": "Điểm bầu cử số 50 - Nhà văn hóa Ấp Mới",
+        "address": "Ấp Mới, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8840,
+        "lng": 106.6200,
+        "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 51,
+        "name": "Điểm bầu cử số 51 - Trường TH Tân Đông",
+        "address": "Ấp Mới, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8848,
+        "lng": 106.6033,
+        "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 52,
+        "name": "Điểm bầu cử số 52 - Nhà sinh hoạt Tổ 1",
+        "address": "Ấp 1, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8856,
+        "lng": 106.6048,
+        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 53,
+        "name": "Điểm bầu cử số 53 - Nhà sinh hoạt Tổ 2",
+        "address": "Ấp 1, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8864,
+        "lng": 106.6163,
+        "image": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 54,
+        "name": "Điểm bầu cử số 54 - Nhà sinh hoạt Tổ 3",
+        "address": "Ấp 2, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8872,
+        "lng": 106.6178,
+        "image": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 55,
+        "name": "Điểm bầu cử số 55 - Nhà sinh hoạt Tổ 4",
+        "address": "Ấp 2, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8760,
+        "lng": 106.6093,
+        "image": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 56,
+        "name": "Điểm bầu cử số 56 - Nhà sinh hoạt Tổ 5",
+        "address": "Ấp 3, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8768,
+        "lng": 106.6108,
+        "image": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 57,
+        "name": "Điểm bầu cử số 57 - Nhà sinh hoạt Tổ 6",
+        "address": "Ấp 3, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8776,
+        "lng": 106.6123,
+        "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 58,
+        "name": "Điểm bầu cử số 58 - Nhà sinh hoạt Tổ 7",
+        "address": "Ấp 4, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8784,
+        "lng": 106.6138,
+        "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 59,
+        "name": "Điểm bầu cử số 59 - Nhà sinh hoạt Tổ 8",
+        "address": "Ấp 4, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8792,
+        "lng": 106.6153,
+        "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 60,
+        "name": "Điểm bầu cử số 60 - Nhà sinh hoạt Tổ 9",
+        "address": "Ấp 5, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8952,
+        "lng": 106.6108,
+        "image": "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 61,
+        "name": "Điểm bầu cử số 61 - Nhà sinh hoạt Tổ 10",
+        "address": "Ấp 5, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8960,
+        "lng": 106.6123,
+        "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 62,
+        "name": "Điểm bầu cử số 62 - Nhà sinh hoạt Tổ 11",
+        "address": "Ấp 6, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8833,
+        "lng": 106.6030,
+        "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 63,
+        "name": "Điểm bầu cử số 63 - Nhà sinh hoạt Tổ 12",
+        "address": "Ấp 7, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8755,
+        "lng": 106.6078,
+        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 64,
+        "name": "Điểm bầu cử số 64 - Nhà sinh hoạt Tổ 13",
+        "address": "Ấp 7, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8763,
+        "lng": 106.6193,
+        "image": "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 65,
+        "name": "Điểm bầu cử số 65 - Nhà sinh hoạt Tổ 14",
+        "address": "Ấp 8, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8966,
+        "lng": 106.6058,
+        "image": "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=400&h=300&fit=crop"
+    },
+    {
+        "id": 66,
+        "name": "Điểm bầu cử số 66 - Nhà sinh hoạt Tổ 15",
+        "address": "Ấp 8, Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM",
+        "lat": 10.8974,
+        "lng": 106.6073,
+        "image": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=400&h=300&fit=crop"
+    }
+]

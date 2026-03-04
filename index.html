@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bản Đồ Điểm Bầu Cử - Xã Đông Thạnh, Hóc Môn, TP.HCM</title>
+    <meta name="description"
+        content="Bản đồ 66 điểm bầu cử tại Xã Đông Thạnh, Huyện Hóc Môn, TP.HCM. Xem vị trí, hình ảnh và chỉ đường đến các điểm bầu cử." />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗳️</text></svg>">
+
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <header id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-icon">🗳️</span>
+                <span>Bầu Cử 2026</span>
+            </div>
+            <h1>Bản Đồ Điểm Bầu Cử</h1>
+            <p class="hero-subtitle">Xã Đông Thạnh - Huyện Hóc Môn - TP. Hồ Chí Minh</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalLocations">66</span>
+                    <span class="stat-label">Điểm bầu cử</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">Ấp</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2026</span>
+                    <span class="stat-label">Năm bầu cử</span>
+                </div>
+            </div>
+            <a href="#map-section" class="hero-cta">
+                <span>Xem Bản Đồ</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- Search & Filter Section -->
+    <section id="map-section" class="map-section">
+        <div class="section-header">
+            <h2>Danh Sách 66 Điểm Bầu Cử</h2>
+            <p>Nhấp vào điểm đánh dấu trên bản đồ để xem chi tiết và chỉ đường</p>
+        </div>
+
+        <div class="controls-bar">
+            <div class="search-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
+                </svg>
+                <input type="text" id="searchInput" placeholder="Tìm kiếm điểm bầu cử..." />
+            </div>
+            <div class="filter-chips" id="filterChips">
+                <button class="chip active" data-filter="all">Tất cả</button>
+                <button class="chip" data-filter="Ấp 1">Ấp 1</button>
+                <button class="chip" data-filter="Ấp 2">Ấp 2</button>
+                <button class="chip" data-filter="Ấp 3">Ấp 3</button>
+                <button class="chip" data-filter="Ấp 4">Ấp 4</button>
+                <button class="chip" data-filter="Ấp 5">Ấp 5</button>
+                <button class="chip" data-filter="Ấp 6">Ấp 6</button>
+                <button class="chip" data-filter="Ấp 7">Ấp 7</button>
+                <button class="chip" data-filter="Ấp 8">Ấp 8</button>
+            </div>
+        </div>
+
+        <!-- Map Container -->
+        <div class="map-wrapper">
+            <div id="map"></div>
+            <div class="map-legend">
+                <div class="legend-title">Chú thích</div>
+                <div class="legend-item">
+                    <div class="legend-marker"></div>
+                    <span>Điểm bầu cử</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-marker active"></div>
+                    <span>Đang chọn</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location List -->
+        <div class="locations-grid" id="locationsGrid">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">🗳️</span>
+                <div>
+                    <h3>Điểm Bầu Cử Xã Đông Thạnh</h3>
+                    <p>Huyện Hóc Môn, TP. Hồ Chí Minh</p>
+                </div>
+            </div>
+            <div class="footer-info">
+                <p>© 2026 - Ủy ban bầu cử Xã Đông Thạnh</p>
+                <p>Liên hệ: UBND Xã Đông Thạnh - Huyện Hóc Môn</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+</body>
+
+</html>
