@@ -3,13 +3,14 @@ let map;
 let markers = [];
 let allLocations = [];
 let activeMarker = null;
-let currentLocation = null; // track what's open in modal
+let currentLocation = null;
 
 // DOM elements
 const modalOverlay = document.getElementById('modalOverlay');
 const modalImage = document.getElementById('modalImage');
 const modalNumber = document.getElementById('modalNumber');
 const modalName = document.getElementById('modalName');
+const modalAps = document.getElementById('modalAps');
 const modalAddressText = document.getElementById('modalAddressText');
 const modalGoogleMaps = document.getElementById('modalGoogleMaps');
 const modalClose = document.getElementById('modalClose');
@@ -19,9 +20,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     createParticles();
     await loadLocations();
     initMap();
+    initApFilter();
     renderLocationCards(allLocations);
     setupSearch();
-    setupFilters();
     setupSmoothScroll();
     setupModal();
     setupFAB();
@@ -55,6 +56,43 @@ async function loadLocations() {
     }
 }
 
+// ===== Tom Select Ấp Filter =====
+let tomSelect = null;
+
+function initApFilter() {
+    // Collect all unique ấp from data, sorted
+    const apSet = new Set();
+    allLocations.forEach(loc => {
+        if (Array.isArray(loc.aps)) loc.aps.forEach(ap => apSet.add(ap));
+        else if (loc.ap) apSet.add(loc.ap);
+    });
+    const sorted = [...apSet].sort((a, b) => {
+        const numA = parseInt(a.replace(/\D/g, '')) || 0;
+        const numB = parseInt(b.replace(/\D/g, '')) || 0;
+        return numA !== numB ? numA - numB : a.localeCompare(b, 'vi');
+    });
+
+    // Populate <select>
+    const select = document.getElementById('apFilter');
+    sorted.forEach(ap => {
+        const opt = document.createElement('option');
+        opt.value = ap;
+        opt.textContent = ap;
+        select.appendChild(opt);
+    });
+
+    // Init Tom Select
+    tomSelect = new TomSelect('#apFilter', {
+        maxOptions: null,
+        placeholder: 'Lọc theo ấp...',
+        allowEmptyOption: false,
+        searchField: ['text'],
+        onChange(value) {
+            filterAndRender();
+        },
+    });
+}
+
 // ===== Initialize Map =====
 function initMap() {
     const center = [10.886, 106.611];
@@ -64,7 +102,6 @@ function initMap() {
         zoom: 15,
         zoomControl: true,
         scrollWheelZoom: true,
-        // Better mobile touch
         tap: true,
         tapTolerance: 16,
     });
@@ -74,7 +111,6 @@ function initMap() {
         maxZoom: 19
     }).addTo(map);
 
-    // Move zoom control to bottom-right on mobile
     if (window.innerWidth <= 768) {
         map.zoomControl.setPosition('bottomright');
     }
@@ -108,35 +144,27 @@ function addMarkers(locations) {
 
 // ===== Modal =====
 function setupModal() {
-    // Close on X button
     modalClose.addEventListener('click', closeModal);
 
-    // Close on overlay click (outside card on desktop)
     modalOverlay.addEventListener('click', (e) => {
         if (e.target === modalOverlay) closeModal();
     });
 
-    // Close on ESC
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeModal();
     });
 
-    // Touch swipe down to close (mobile bottom sheet)
     setupSwipeToClose();
 
-    // Share button
     const shareBtn = document.getElementById('modalShare');
-    if (shareBtn) {
-        shareBtn.addEventListener('click', handleShare);
-    }
+    if (shareBtn) shareBtn.addEventListener('click', handleShare);
 }
 
 function setupSwipeToClose() {
     const card = document.querySelector('.modal-card');
     if (!card) return;
 
-    let startY = 0;
-    let isDragging = false;
+    let startY = 0, isDragging = false;
 
     card.addEventListener('touchstart', (e) => {
         startY = e.touches[0].clientY;
@@ -163,64 +191,43 @@ function setupSwipeToClose() {
 async function handleShare() {
     if (!currentLocation) return;
     const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${currentLocation.lat},${currentLocation.lng}`;
-    const shareText = `📍 ${currentLocation.name}\n${currentLocation.address}\n\n🗺️ Chỉ đường: ${googleMapsUrl}`;
+    const apsText = getAps(currentLocation).join(', ');
+    const shareText = `📍 ${currentLocation.name}\n${apsText} — Xã Đông Thạnh, TP.HCM\n\n🗺️ Chỉ đường: ${googleMapsUrl}`;
 
     if (navigator.share) {
         try {
-            await navigator.share({
-                title: currentLocation.name,
-                text: shareText,
-                url: googleMapsUrl,
-            });
+            await navigator.share({ title: currentLocation.name, text: shareText, url: googleMapsUrl });
         } catch (e) { /* cancelled */ }
     } else {
-        // Fallback: copy to clipboard
         try {
             await navigator.clipboard.writeText(shareText);
             showToast('📋 Đã copy thông tin!');
-        } catch (e) {
-            showToast('Không thể chia sẻ');
-        }
+        } catch (e) { showToast('Không thể chia sẻ'); }
     }
 }
 
-function showToast(message) {
-    const existing = document.querySelector('.toast-msg');
-    if (existing) existing.remove();
-    const el = document.createElement('div');
-    el.className = 'toast-msg';
-    el.textContent = message;
-    el.style.cssText = `
-        position: fixed; bottom: calc(80px + env(safe-area-inset-bottom,0px)); left: 50%;
-        transform: translateX(-50%) translateY(10px);
-        background: rgba(0,0,0,0.78); color: #fff; padding: 10px 20px;
-        border-radius: 50px; font-size: 0.88rem; z-index: 99999;
-        opacity: 0; transition: all 0.3s; pointer-events: none;
-        white-space: nowrap; font-family: 'Inter', sans-serif;
-    `;
-    document.body.appendChild(el);
-    requestAnimationFrame(() => {
-        el.style.opacity = '1';
-        el.style.transform = 'translateX(-50%) translateY(0)';
-    });
-    setTimeout(() => {
-        el.style.opacity = '0';
-        setTimeout(() => el.remove(), 300);
-    }, 2000);
+function getAps(loc) {
+    if (Array.isArray(loc.aps) && loc.aps.length > 0) return loc.aps;
+    if (loc.ap) return [loc.ap];
+    return [];
 }
 
 function openModal(location) {
     currentLocation = location;
     const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}`;
-    const fallbackSvg = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='460' height='220'><rect fill='%23f0f4ff' width='460' height='220'/><text fill='%238896a6' font-size='18' font-family='sans-serif' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'>🏛️ Điểm bầu cử ${location.id}</text></svg>`;
+    const fallbackSvg = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='533'><rect fill='%23f0f4ff' width='400' height='533'/><text fill='%238896a6' font-size='18' font-family='sans-serif' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'>🏛️ Điểm bầu cử ${location.id}</text></svg>`;
 
     modalImage.src = location.image;
     modalImage.alt = location.name;
     modalImage.onerror = function () { this.src = fallbackSvg; };
     modalNumber.textContent = location.id;
     modalName.textContent = location.name;
-    modalAddressText.textContent = location.address;
+    modalAddressText.textContent = location.address || 'Xã Đông Thạnh, TP.HCM';
     modalGoogleMaps.href = googleMapsUrl;
+
+    // Render ấp tags
+    const aps = getAps(location);
+    modalAps.innerHTML = aps.map(ap => `<span class="modal-ap-tag">${ap}</span>`).join('');
 
     modalOverlay.classList.add('visible');
     document.body.style.overflow = 'hidden';
@@ -231,6 +238,25 @@ function closeModal() {
     document.body.style.overflow = '';
     clearActiveMarker();
     currentLocation = null;
+}
+
+function showToast(message) {
+    const existing = document.querySelector('.toast-msg');
+    if (existing) existing.remove();
+    const el = document.createElement('div');
+    el.className = 'toast-msg';
+    el.textContent = message;
+    el.style.cssText = `
+        position:fixed;bottom:calc(80px + env(safe-area-inset-bottom,0px));left:50%;
+        transform:translateX(-50%) translateY(10px);
+        background:rgba(0,0,0,0.78);color:#fff;padding:10px 20px;
+        border-radius:50px;font-size:0.88rem;z-index:99999;
+        opacity:0;transition:all 0.3s;pointer-events:none;
+        white-space:nowrap;font-family:'Inter',sans-serif;
+    `;
+    document.body.appendChild(el);
+    requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translateX(-50%) translateY(0)'; });
+    setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 300); }, 2000);
 }
 
 // ===== Marker State =====
@@ -258,9 +284,12 @@ function clearMarkers() {
 function renderLocationCards(locations) {
     const grid = document.getElementById('locationsGrid');
     const countEl = document.getElementById('locationCount');
-    countEl.textContent = locations.length;
+    const resultEl = document.getElementById('resultCount');
+    const n = locations.length;
+    countEl.textContent = n;
+    if (resultEl) resultEl.textContent = `${n} điểm`;
 
-    if (locations.length === 0) {
+    if (n === 0) {
         grid.innerHTML = `
       <div class="no-results">
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -271,27 +300,29 @@ function renderLocationCards(locations) {
         return;
     }
 
-    grid.innerHTML = locations.map((loc, i) => `
-    <div class="location-card" data-id="${loc.id}" style="animation-delay: ${i * 0.018}s">
+    grid.innerHTML = locations.map((loc, i) => {
+        const aps = getAps(loc);
+        const apTags = aps.map(ap => `<span class="card-ap-tag">${ap}</span>`).join('');
+        return `
+    <div class="location-card" data-id="${loc.id}" style="animation-delay:${i * 0.015}s">
       <div class="card-number">${loc.id}</div>
       <div class="card-info">
         <div class="card-name">${loc.name}</div>
-        <div class="card-address">${loc.address}</div>
+        ${apTags ? `<div class="card-aps">${apTags}</div>` : ''}
       </div>
       <div class="card-arrow">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M9 18l6-6-6-6"/>
         </svg>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+    }).join('');
 
     grid.querySelectorAll('.location-card').forEach(card => {
         card.addEventListener('click', () => {
             const id = parseInt(card.dataset.id);
             const marker = markers.find(m => m.locationData.id === id);
             if (marker) {
-                // Scroll map into view on mobile before flying
                 if (window.innerWidth <= 768) {
                     document.getElementById('map-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
                     setTimeout(() => {
@@ -329,34 +360,26 @@ function setupSearch() {
     });
 }
 
-// ===== Filter =====
-function setupFilters() {
-    const chips = document.querySelectorAll('.chip');
-    chips.forEach(chip => {
-        chip.addEventListener('click', () => {
-            chips.forEach(c => c.classList.remove('active'));
-            chip.classList.add('active');
-            filterAndRender();
-        });
-    });
-}
+// ===== Ấp Filter - handled by Tom Select =====
+function setupApFilter() { }
 
 function filterAndRender() {
     const term = document.getElementById('searchInput').value.toLowerCase().trim();
-    const filter = document.querySelector('.chip.active')?.dataset.filter || 'all';
+    const apFilter = (tomSelect && tomSelect.getValue()) ? tomSelect.getValue() : 'all';
 
     let filtered = allLocations;
 
     if (term) {
         filtered = filtered.filter(loc =>
             loc.name.toLowerCase().includes(term) ||
-            loc.address.toLowerCase().includes(term) ||
-            loc.id.toString().includes(term)
+            (loc.address || '').toLowerCase().includes(term) ||
+            loc.id.toString().includes(term) ||
+            getAps(loc).some(ap => ap.toLowerCase().includes(term))
         );
     }
 
-    if (filter !== 'all') {
-        filtered = filtered.filter(loc => loc.address.includes(filter));
+    if (apFilter !== 'all') {
+        filtered = filtered.filter(loc => getAps(loc).includes(apFilter));
     }
 
     addMarkers(filtered);
@@ -381,29 +404,23 @@ function setupSmoothScroll() {
     });
 }
 
-// ===== Floating Back-to-Top Button =====
+// ===== Floating Back-to-Top =====
 function setupFAB() {
     const fab = document.getElementById('fabTop');
     if (!fab) return;
-
     window.addEventListener('scroll', () => {
         fab.classList.toggle('visible', window.scrollY > 300);
     }, { passive: true });
-
-    fab.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    fab.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
-// ===== Map Resize Handle (mobile only) =====
+// ===== Map Resize Handle =====
 function setupMapResize() {
     const handle = document.getElementById('mapResizeHandle');
     const mapEl = document.getElementById('map');
     if (!handle || !mapEl) return;
 
-    let startY = 0;
-    let startHeight = 0;
-    let isDragging = false;
+    let startY = 0, startHeight = 0, isDragging = false;
 
     function onStart(e) {
         startY = e.touches ? e.touches[0].clientY : e.clientY;

@@ -273,10 +273,11 @@ body {
   margin: 0 auto;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   background: var(--bg);
   border-bottom: 1px solid var(--border-light);
-  overflow: hidden;
+  /* overflow must be visible so Tom Select dropdown can extend below */
+  overflow: visible;
 }
 
 .search-box {
@@ -339,47 +340,149 @@ body {
   background: rgba(214, 40, 57, 0.08);
 }
 
-.filter-chips {
-  display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  padding-bottom: 2px;
-  scrollbar-width: none;
-}
-
-.filter-chips::-webkit-scrollbar {
-  display: none;
-}
-
-.chip {
-  padding: 7px 15px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 50px;
-  color: var(--text-secondary);
-  font-size: 0.82rem;
-  font-weight: 500;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: var(--transition);
-  font-family: inherit;
-  /* Better touch target */
-  min-height: 36px;
+/* ===== Filter row: dropdown + result count ===== */
+.filter-row {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
-.chip:hover {
-  background: var(--bg-card-hover);
+/* ===== Tom Select Ấp filter ===== */
+.ap-select-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ===== Tom Select - clean override to match app design ===== */
+.ts-wrapper {
+  width: 100%;
+}
+
+/* Control box (the visible input part) */
+.ts-wrapper .ts-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 36px 10px 14px;
+  /* right padding for caret */
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
   color: var(--text-primary);
-  border-color: var(--primary-light);
+  box-shadow: none;
+  min-height: unset;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  flex-wrap: nowrap;
 }
 
-.chip.active {
-  background: var(--primary);
-  color: white;
+/* Search input inside control */
+.ts-wrapper .ts-control input {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  min-width: 0;
+  flex: 1;
+}
+
+/* Placeholder color */
+.ts-wrapper .ts-control .placeholder {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+/* Focus state */
+.ts-wrapper.focus .ts-control {
   border-color: var(--primary);
-  box-shadow: 0 2px 8px rgba(214, 40, 57, 0.3);
+  box-shadow: 0 0 0 3px rgba(214, 40, 57, 0.1);
+  outline: none;
+}
+
+/* When an option is selected */
+.ts-wrapper.has-items .ts-control {
+  border-color: var(--primary);
+  background: rgba(214, 40, 57, 0.04);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Caret chevron */
+.ts-wrapper:not(.no-caret):not(.multi) .ts-control:after {
+  border-color: var(--text-muted) transparent transparent;
+  right: 14px;
+}
+
+.ts-wrapper.has-items:not(.no-caret):not(.multi) .ts-control:after {
+  border-color: var(--primary) transparent transparent;
+}
+
+/* Dropdown panel */
+.ts-dropdown {
+  z-index: 2000;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  font-family: 'Inter', sans-serif;
+  margin-top: 4px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* Dropdown search input row */
+.ts-dropdown .ts-dropdown-search-row {
+  padding: 0;
+}
+
+.ts-dropdown .ts-dropdown-content {
+  max-height: 240px;
+  overscroll-behavior: contain;
+  padding: 4px 0;
+}
+
+/* Each option */
+.ts-dropdown .option {
+  padding: 10px 16px;
+  font-size: 0.87rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.ts-dropdown .option:hover {
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.ts-dropdown .option.active {
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.ts-dropdown .option.selected {
+  background: rgba(214, 40, 57, 0.07);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.ts-dropdown .no-results {
+  padding: 14px 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.result-count {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+  background: var(--surface);
+  padding: 6px 12px;
+  border-radius: 50px;
+  border: 1.5px solid var(--border);
+  flex-shrink: 0;
 }
 
 /* ===== Map Container ===== */
@@ -489,10 +592,21 @@ body {
   transform: translateY(0) scale(1);
 }
 
+.modal-drag-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 10px auto 0;
+  display: none;
+}
+
 .modal-image-wrapper {
   position: relative;
   width: 100%;
-  height: 220px;
+  /* Portrait 3:4 ratio */
+  aspect-ratio: 3 / 4;
+  max-height: 55vh;
   overflow: hidden;
   background: var(--surface);
 }
@@ -546,7 +660,27 @@ body {
 }
 
 .modal-body {
-  padding: 18px 20px 22px;
+  padding: 16px 20px 20px;
+}
+
+/* Ấp tags */
+.modal-aps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.modal-ap-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  background: rgba(214, 40, 57, 0.08);
+  color: var(--primary);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(214, 40, 57, 0.2);
 }
 
 .modal-name {
@@ -727,8 +861,27 @@ body {
   font-weight: 600;
   font-size: 0.87rem;
   color: var(--text-primary);
-  margin-bottom: 2px;
+  margin-bottom: 4px;
   line-height: 1.4;
+}
+
+.card-aps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 3px;
+}
+
+.card-ap-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background: rgba(214, 40, 57, 0.07);
+  color: var(--primary);
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border: 1px solid rgba(214, 40, 57, 0.15);
 }
 
 .card-address {
@@ -955,8 +1108,14 @@ body {
     margin: 10px auto 0;
   }
 
+  /* On mobile we keep aspect-ratio from desktop, but cap height */
   .modal-image-wrapper {
-    height: 200px;
+    max-height: 50vh;
+  }
+
+  /* Show actual HTML drag handle element */
+  .modal-drag-handle {
+    display: block;
   }
 
   .modal-body {
