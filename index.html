@@ -16,7 +16,6 @@
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -40,7 +39,7 @@
             <p class="hero-subtitle">Xã Đông Thạnh - Huyện Hóc Môn - TP. Hồ Chí Minh</p>
             <div class="hero-stats">
                 <div class="stat-item">
-                    <span class="stat-number" id="totalLocations">66</span>
+                    <span class="stat-number">66</span>
                     <span class="stat-label">Điểm bầu cử</span>
                 </div>
                 <div class="stat-item">
@@ -54,14 +53,14 @@
             </div>
             <a href="#map-section" class="hero-cta">
                 <span>Xem Bản Đồ</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <path d="M12 5v14M5 12l7 7 7-7" />
                 </svg>
             </a>
         </div>
     </header>
 
-    <!-- Search & Filter Section -->
+    <!-- Map Section -->
     <section id="map-section" class="map-section">
         <div class="section-header">
             <h2>Danh Sách 66 Điểm Bầu Cử</h2>
@@ -70,7 +69,7 @@
 
         <div class="controls-bar">
             <div class="search-box">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="11" cy="11" r="8" />
                     <path d="m21 21-4.35-4.35" />
                 </svg>
@@ -89,27 +88,46 @@
             </div>
         </div>
 
-        <!-- Map Container -->
+        <!-- Map Container - Full Width -->
         <div class="map-wrapper">
             <div id="map"></div>
-            <div class="map-legend">
-                <div class="legend-title">Chú thích</div>
-                <div class="legend-item">
-                    <div class="legend-marker"></div>
-                    <span>Điểm bầu cử</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-marker active"></div>
-                    <span>Đang chọn</span>
-                </div>
-            </div>
         </div>
 
         <!-- Location List -->
-        <div class="locations-grid" id="locationsGrid">
-            <!-- Populated by JS -->
+        <div class="locations-section">
+            <div class="locations-section-title">
+                📋 Danh sách điểm bầu cử <span id="locationCount">66</span>
+            </div>
+            <div class="locations-grid" id="locationsGrid"></div>
         </div>
     </section>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-card">
+            <div class="modal-image-wrapper">
+                <img class="modal-image" id="modalImage" src="" alt="" />
+                <div class="modal-number" id="modalNumber"></div>
+                <button class="modal-close" id="modalClose">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-name" id="modalName"></div>
+                <div class="modal-address" id="modalAddress">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span id="modalAddressText"></span>
+                </div>
+                <a class="modal-btn" id="modalGoogleMaps" href="#" target="_blank" rel="noopener noreferrer">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="3 11 22 2 13 21 11 13 3 11" />
+                    </svg>
+                    Chỉ đường trên Google Maps
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer id="footer">

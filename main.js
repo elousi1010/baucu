@@ -4,7 +4,16 @@ let markers = [];
 let allLocations = [];
 let activeMarker = null;
 
-// Initialize the application
+// DOM elements
+const modalOverlay = document.getElementById('modalOverlay');
+const modalImage = document.getElementById('modalImage');
+const modalNumber = document.getElementById('modalNumber');
+const modalName = document.getElementById('modalName');
+const modalAddressText = document.getElementById('modalAddressText');
+const modalGoogleMaps = document.getElementById('modalGoogleMaps');
+const modalClose = document.getElementById('modalClose');
+
+// Initialize
 document.addEventListener('DOMContentLoaded', async () => {
     createParticles();
     await loadLocations();
@@ -13,42 +22,38 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupSearch();
     setupFilters();
     setupSmoothScroll();
+    setupModal();
 });
 
 // ===== Particle Effect =====
 function createParticles() {
     const container = document.getElementById('particles');
-    const count = 30;
-
-    for (let i = 0; i < count; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.animationDuration = `${6 + Math.random() * 10}s`;
-        particle.style.animationDelay = `${Math.random() * 8}s`;
-        particle.style.width = `${2 + Math.random() * 4}px`;
-        particle.style.height = particle.style.width;
-        particle.style.background = Math.random() > 0.5
-            ? `rgba(230, 57, 70, ${0.2 + Math.random() * 0.3})`
-            : `rgba(247, 127, 0, ${0.2 + Math.random() * 0.3})`;
-        container.appendChild(particle);
+    for (let i = 0; i < 20; i++) {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+        p.style.left = `${Math.random() * 100}%`;
+        p.style.animationDuration = `${8 + Math.random() * 12}s`;
+        p.style.animationDelay = `${Math.random() * 8}s`;
+        const size = `${2 + Math.random() * 3}px`;
+        p.style.width = size;
+        p.style.height = size;
+        container.appendChild(p);
     }
 }
 
 // ===== Load Data =====
 async function loadLocations() {
     try {
-        const response = await fetch('/data/voting-locations.json');
-        allLocations = await response.json();
-    } catch (error) {
-        console.error('Failed to load voting locations:', error);
+        const res = await fetch('/data/voting-locations.json');
+        allLocations = await res.json();
+    } catch (e) {
+        console.error('Failed to load:', e);
         allLocations = [];
     }
 }
 
 // ===== Initialize Map =====
 function initMap() {
-    // Center on Xã Đông Thạnh, Hóc Môn, HCM
     const center = [10.886, 106.611];
 
     map = L.map('map', {
@@ -58,166 +63,143 @@ function initMap() {
         scrollWheelZoom: true
     });
 
-    // Use CartoDB Dark Matter tileset for dark theme
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>',
-        subdomains: 'abcd',
+    // Light theme tile layer - OpenStreetMap standard
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 19
     }).addTo(map);
 
-    // Add markers
     addMarkers(allLocations);
 }
 
 // ===== Add Markers =====
 function addMarkers(locations) {
-    // Clear existing markers
     clearMarkers();
 
-    locations.forEach((location) => {
-        // Create custom numbered marker
-        const markerIcon = L.divIcon({
+    locations.forEach((loc) => {
+        const icon = L.divIcon({
             className: 'custom-marker-wrapper',
-            html: `<div class="custom-marker" data-id="${location.id}">${location.id}</div>`,
-            iconSize: [36, 36],
-            iconAnchor: [18, 18],
-            popupAnchor: [0, -22]
+            html: `<div class="custom-marker" data-id="${loc.id}">${loc.id}</div>`,
+            iconSize: [34, 34],
+            iconAnchor: [17, 17]
         });
 
-        const marker = L.marker([location.lat, location.lng], { icon: markerIcon })
-            .addTo(map);
+        const marker = L.marker([loc.lat, loc.lng], { icon: icon }).addTo(map);
 
-        // Create popup content
-        const popupContent = createPopupContent(location);
-
-        marker.bindPopup(popupContent, {
-            maxWidth: 320,
-            minWidth: 300,
-            closeButton: true,
-            className: 'custom-popup'
-        });
-
-        // Event listeners
         marker.on('click', () => {
-            setActiveMarker(location.id);
-            scrollToCard(location.id);
+            openModal(loc);
+            setActiveMarker(loc.id);
         });
 
-        marker.on('popupclose', () => {
-            clearActiveMarker();
-        });
-
-        marker.locationData = location;
+        marker.locationData = loc;
         markers.push(marker);
     });
 }
 
-// ===== Create Popup Content =====
-function createPopupContent(location) {
-    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}`;
+// ===== Modal =====
+function setupModal() {
+    // Close on X button
+    modalClose.addEventListener('click', closeModal);
 
-    return `
-    <div class="popup-content">
-      <img 
-        class="popup-image" 
-        src="${location.image}" 
-        alt="${location.name}"
-        onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22200%22><rect fill=%22%23111640%22 width=%22400%22 height=%22200%22/><text fill=%22%236b7394%22 font-size=%2216%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>🏛️ Điểm bầu cử ${location.id}</text></svg>'"
-      />
-      <div class="popup-body">
-        <div class="popup-number">${location.id}</div>
-        <div class="popup-name">${location.name}</div>
-        <div class="popup-address">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-          <span>${location.address}</span>
-        </div>
-        <a href="${googleMapsUrl}" target="_blank" rel="noopener noreferrer" class="popup-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="3 11 22 2 13 21 11 13 3 11"/>
-          </svg>
-          Chỉ đường trên Google Maps
-        </a>
-      </div>
-    </div>
-  `;
+    // Close on overlay click (outside card)
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            closeModal();
+        }
+    });
+
+    // Close on ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
 }
 
-// ===== Marker State Management =====
+function openModal(location) {
+    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${location.lat},${location.lng}`;
+    const fallbackSvg = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='460' height='220'><rect fill='%23f0f4ff' width='460' height='220'/><text fill='%238896a6' font-size='18' font-family='sans-serif' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'>🏛️ Điểm bầu cử ${location.id}</text></svg>`;
+
+    modalImage.src = location.image;
+    modalImage.alt = location.name;
+    modalImage.onerror = function () { this.src = fallbackSvg; };
+    modalNumber.textContent = location.id;
+    modalName.textContent = location.name;
+    modalAddressText.textContent = location.address;
+    modalGoogleMaps.href = googleMapsUrl;
+
+    modalOverlay.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    modalOverlay.classList.remove('visible');
+    document.body.style.overflow = '';
+    clearActiveMarker();
+}
+
+// ===== Marker State =====
 function setActiveMarker(id) {
     clearActiveMarker();
-
-    const markerEl = document.querySelector(`.custom-marker[data-id="${id}"]`);
-    if (markerEl) {
-        markerEl.classList.add('active');
+    const el = document.querySelector(`.custom-marker[data-id="${id}"]`);
+    if (el) {
+        el.classList.add('active');
         activeMarker = id;
     }
-
-    // Highlight card
     document.querySelectorAll('.location-card').forEach(card => {
         card.classList.toggle('active', parseInt(card.dataset.id) === id);
     });
 }
 
 function clearActiveMarker() {
-    document.querySelectorAll('.custom-marker.active').forEach(el => {
-        el.classList.remove('active');
-    });
-    document.querySelectorAll('.location-card.active').forEach(el => {
-        el.classList.remove('active');
-    });
+    document.querySelectorAll('.custom-marker.active').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.location-card.active').forEach(el => el.classList.remove('active'));
     activeMarker = null;
 }
 
 function clearMarkers() {
-    markers.forEach(marker => {
-        map.removeLayer(marker);
-    });
+    markers.forEach(m => map.removeLayer(m));
     markers = [];
 }
 
-// ===== Render Location Cards =====
+// ===== Render Cards =====
 function renderLocationCards(locations) {
     const grid = document.getElementById('locationsGrid');
+    const countEl = document.getElementById('locationCount');
+    countEl.textContent = locations.length;
 
     if (locations.length === 0) {
         grid.innerHTML = `
       <div class="no-results">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-          <path d="M8 11h6"/>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M8 11h6"/>
         </svg>
         <p>Không tìm thấy điểm bầu cử</p>
-      </div>
-    `;
+      </div>`;
         return;
     }
 
-    grid.innerHTML = locations.map((loc, index) => `
-    <div class="location-card" data-id="${loc.id}" style="animation-delay: ${index * 0.03}s">
+    grid.innerHTML = locations.map((loc, i) => `
+    <div class="location-card" data-id="${loc.id}" style="animation-delay: ${i * 0.02}s">
       <div class="card-number">${loc.id}</div>
       <div class="card-info">
         <div class="card-name">${loc.name}</div>
         <div class="card-address">${loc.address}</div>
       </div>
       <div class="card-arrow">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M9 18l6-6-6-6"/>
         </svg>
       </div>
     </div>
   `).join('');
 
-    // Add click handlers
+    // Click → fly to marker & open modal
     grid.querySelectorAll('.location-card').forEach(card => {
         card.addEventListener('click', () => {
             const id = parseInt(card.dataset.id);
             const marker = markers.find(m => m.locationData.id === id);
             if (marker) {
                 map.setView(marker.getLatLng(), 17, { animate: true });
-                marker.openPopup();
+                openModal(marker.locationData);
                 setActiveMarker(id);
             }
         });
@@ -226,21 +208,17 @@ function renderLocationCards(locations) {
 
 // ===== Search =====
 function setupSearch() {
-    const searchInput = document.getElementById('searchInput');
-    let debounceTimer;
-
-    searchInput.addEventListener('input', (e) => {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-            filterAndRender();
-        }, 250);
+    const input = document.getElementById('searchInput');
+    let timer;
+    input.addEventListener('input', () => {
+        clearTimeout(timer);
+        timer = setTimeout(filterAndRender, 200);
     });
 }
 
 // ===== Filter =====
 function setupFilters() {
     const chips = document.querySelectorAll('.chip');
-
     chips.forEach(chip => {
         chip.addEventListener('click', () => {
             chips.forEach(c => c.classList.remove('active'));
@@ -251,55 +229,39 @@ function setupFilters() {
 }
 
 function filterAndRender() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-    const activeFilter = document.querySelector('.chip.active')?.dataset.filter || 'all';
+    const term = document.getElementById('searchInput').value.toLowerCase().trim();
+    const filter = document.querySelector('.chip.active')?.dataset.filter || 'all';
 
     let filtered = allLocations;
 
-    // Apply search
-    if (searchTerm) {
+    if (term) {
         filtered = filtered.filter(loc =>
-            loc.name.toLowerCase().includes(searchTerm) ||
-            loc.address.toLowerCase().includes(searchTerm) ||
-            loc.id.toString().includes(searchTerm)
+            loc.name.toLowerCase().includes(term) ||
+            loc.address.toLowerCase().includes(term) ||
+            loc.id.toString().includes(term)
         );
     }
 
-    // Apply filter
-    if (activeFilter !== 'all') {
-        filtered = filtered.filter(loc => loc.address.includes(activeFilter));
+    if (filter !== 'all') {
+        filtered = filtered.filter(loc => loc.address.includes(filter));
     }
 
-    // Update map markers
     addMarkers(filtered);
-
-    // Update cards
     renderLocationCards(filtered);
 
-    // Fit bounds if there are markers
     if (filtered.length > 0 && markers.length > 0) {
         const group = L.featureGroup(markers);
         map.fitBounds(group.getBounds().pad(0.1));
     }
 }
 
-// ===== Scroll to Card =====
-function scrollToCard(id) {
-    const card = document.querySelector(`.location-card[data-id="${id}"]`);
-    if (card) {
-        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-}
-
 // ===== Smooth Scroll =====
 function setupSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
             e.preventDefault();
-            const target = document.querySelector(anchor.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
+            const t = document.querySelector(a.getAttribute('href'));
+            if (t) t.scrollIntoView({ behavior: 'smooth' });
         });
     });
 }
